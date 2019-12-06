@@ -25,3 +25,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    ### EntityListeners
+
+    App\EntityListener\UserEntityListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
+    App\EntityListener\ArticleEntityListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

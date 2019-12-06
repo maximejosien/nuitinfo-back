@@ -13,3 +13,7 @@
 ###< lexik/jwt-authentication-bundle ###
 
 /phpdocker/mysql/
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
