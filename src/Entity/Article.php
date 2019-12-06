@@ -27,7 +27,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ApiFilter(SearchFilter::class, properties={
  *     "wording": "ipartial",
- *     "color": "exact",
  *     "category": "ipartial",
  *     "content": "ipartial",
  * })
@@ -57,7 +56,7 @@ class Article
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      *
      * @Groups({"article-read", "article-write"})
      */
@@ -100,25 +99,7 @@ class Article
     protected $urlImage;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @Groups({"article-read", "article-write"})
-     */
-    protected $color;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @Groups({"article-read", "article-write"})
-     */
-    protected $category;
-
-    /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime")
      *
@@ -127,7 +108,7 @@ class Article
     protected $created;
 
     /**
-     * @var User
+     * @var User|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
      *
@@ -136,9 +117,18 @@ class Article
     protected $author;
 
     /**
+     * @var Category|null
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     *
+     * @Groups({"article-read", "article-write"})
+     */
+    protected $category;
+
+    /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -260,53 +250,18 @@ class Article
     }
 
     /**
-     * @return string|null
+     * @return \DateTime|null
      */
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    /**
-     * @param string|null $color
-     */
-    public function setColor(?string $color): self
-    {
-        $this->color = $color;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param string|null $category
-     */
-    public function setCategory(?string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated(): \DateTime
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }
 
     /**
-     * @param \DateTime $created
+     * @param \DateTime|null $created
+     * @return $this
      */
-    public function setCreated(\DateTime $created): self
+    public function setCreated(?\DateTime $created): self
     {
         $this->created = $created;
 
@@ -314,20 +269,44 @@ class Article
     }
 
     /**
-     * @return User
+     * @return User|null
      */
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
     /**
-     * @param User $author
+     * @param User|null $author
+     * @return $this
      */
-    public function setAuthor(User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
         return $this;
+    }
+
+    /**
+     * @return Category|null
+     */
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category|null $category
+     * @return $this
+     */
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->wording;
     }
 }

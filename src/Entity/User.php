@@ -101,7 +101,7 @@ class User implements UserInterface
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -204,5 +204,9 @@ class User implements UserInterface
         $this->articles = $articles;
 
         return $this;
+    }
+
+    public function __toString() {
+        return $this->username;
     }
 }

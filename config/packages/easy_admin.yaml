@@ -1,0 +1,21 @@
+easy_admin:
+    entities:
+        Article:
+            class: App\Entity\Article
+            label: Articles
+            form:
+                fields:
+                    - { property: 'wording'}
+                    - { property: 'content'}
+                    - { property: 'link'}
+                    - { property: 'teaser'}
+                    - { property: 'urlImage'}
+                    - { property: 'sources'}
+                    - { property: 'author'}
+                    - { property: 'category'}
+        User:
+            class: App\Entity\User
+            label: Utilisateurs
+        Category:
+            class: App\Entity\Category
+            label: Catégories
